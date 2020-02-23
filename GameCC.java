@@ -1,14 +1,9 @@
-import java.util.Random;
-
-public class GameCC extends Game {
-    private int difficultyLevel;
-    private Random generator;
+public class GameCC extends GameAI {
     public View view;
 
-    public GameCC(int difficultyLevel){
-        this.difficultyLevel = difficultyLevel;
+    public GameCC(int level){
+        setDifficultyLevel(level);
         view = new View();
-        generator = new Random(); 
         setHasStarted(false);
         prepareToGame();
         playGame();
@@ -53,34 +48,4 @@ public class GameCC extends Game {
 
         return textToDisplay;
     }
-
-    private int[] getComputerCoordinates(){
-        int[] coordinatesAsInt = new int[] {};
-        switch(difficultyLevel){
-            case 1:
-                coordinatesAsInt = randomCoordinates();
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-        }
-
-        return coordinatesAsInt;
-    }
-
-    private int[] randomCoordinates(){
-        int x = generator.nextInt(10);
-        int y = generator.nextInt(10);
-
-        while(getCurrentPlayer().getOcean().getBoard().get(y).get(x).getIsChosen()){
-            generator = new Random();
-            x = generator.nextInt(10);
-            y = generator.nextInt(10);
-            
-        }
-        int[] coordinatesAsArray = new int[]{x, y};
-        return coordinatesAsArray;
-    }
-
 }
