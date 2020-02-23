@@ -5,10 +5,11 @@ public class GameHH {
     private Player currentPlayer;
     private Player player1;
     private Player player2;
-    public View view = new View(); // do konstruktora
+    public View view;
 
     public GameHH(){ 
         hasStarted = false;
+        view = new View();
         prepareToGame();
         playGame();
     }
