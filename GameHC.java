@@ -1,15 +1,11 @@
-import java.util.Random;
 import java.util.regex.Pattern;
 
-public class GameHC extends Game {
-    private int difficultyLevel;
-    private Random generator;
+public class GameHC extends GameAI {
     public View view;
 
     public GameHC(int difficultyLevel){ 
-        this.difficultyLevel = difficultyLevel;
-        view = new View();
-        generator = new Random(); 
+        setDifficultyLevel(difficultyLevel);
+        view = new View(); 
         setHasStarted(false);
         prepareToGame();
         playGame();
@@ -136,34 +132,5 @@ public class GameHC extends Game {
             return false; 
         }
         return pattern.matcher(strNum).matches();
-    }
-
-
-    private int[] getComputerCoordinates(){
-        int[] coordinatesAsInt = new int[] {};
-        switch(difficultyLevel){
-            case 1:
-                coordinatesAsInt = randomCoordinates();
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-        }
-
-        return coordinatesAsInt;
-    }
-
-    private int[] randomCoordinates(){
-        int x = generator.nextInt(10);
-        int y = generator.nextInt(10);
-
-        while(getCurrentPlayer().getOcean().getBoard().get(y).get(x).getIsChosen()){
-            generator = new Random();
-            x = generator.nextInt(10);
-            y = generator.nextInt(10);
-        }
-        int[] coordinatesAsArray = new int[]{x, y};
-        return coordinatesAsArray;
     }
 }
