@@ -27,6 +27,16 @@ public class View {
         return input;
     }
 
+    public int intFromUser(String textToView){
+        System.out.println(" " + textToView + ":");
+        System.out.print(" ");
+        Scanner scannerFromUser = new Scanner(System.in);
+        int input = scannerFromUser.nextInt();
+
+        
+        return input;
+    }
+
     public void printTitle(String title){
         System.out.println("");
         System.out.println(" " + title.toUpperCase());
