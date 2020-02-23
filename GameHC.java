@@ -1,11 +1,7 @@
 import java.util.Random;
 import java.util.regex.Pattern;
 
-public class GameHC {
-    private boolean hasStarted;
-    private Player currentPlayer;
-    private Player playerHuman;
-    private Player playerComp;
+public class GameHC extends Game {
     private int difficultyLevel;
     private Random generator;
     public View view;
@@ -14,20 +10,20 @@ public class GameHC {
         this.difficultyLevel = difficultyLevel;
         view = new View();
         generator = new Random(); 
-        hasStarted = false;
+        setHasStarted(false);
         prepareToGame();
         playGame();
     }
 
-    private void prepareToGame() {
-        playerHuman = new PlayerHuman("first");
-        playerComp = new PlayerComp("Computer");
+    void prepareToGame() {
+        setPlayer1(new PlayerHuman("first"));
+        setPlayer2(new PlayerComp("Computer"));
 
-        currentPlayer = playerComp;
+        setCurrentPlayer(getPlayer2());
     }
 
     private void playGame() {
-        hasStarted = true;
+        setHasStarted(true);
         String textToDisplay = "";
         String coordinatesAsString = "";
         boolean isGaming = true;
@@ -36,8 +32,8 @@ public class GameHC {
             view.printTitle(String.format("It's %s's turn to strike!", turnOfPlayer()));
             
             int[] coordinatesAsInt;
-            if(currentPlayer == playerComp){
-                view.printOcean(currentPlayer.getOcean(), hasStarted);
+            if(getCurrentPlayer() == getPlayer2()){
+                view.printOcean(getCurrentPlayer().getOcean(), getHasStarted());
                 coordinatesAsInt = getCoordinates(coordinatesAsString);
                 textToDisplay = shoot(coordinatesAsInt);
                 view.printText(textToDisplay);
@@ -46,12 +42,12 @@ public class GameHC {
                 coordinatesAsInt = getComputerCoordinates();
                 textToDisplay = shoot(coordinatesAsInt);
                 view.printText(textToDisplay);
-                view.printOcean(currentPlayer.getOcean(), hasStarted);
+                view.printOcean(getCurrentPlayer().getOcean(), getHasStarted());
             }
             
             
 
-            if(playerHuman.hasLost() || playerComp.hasLost()){
+            if(getPlayer1().hasLost() || getPlayer2().hasLost()){
                 isGaming = false;
             } else{
                 changeCurrentPlayer();
@@ -62,10 +58,10 @@ public class GameHC {
     }
 
     private String shoot(int[] coordinatesAsInt){
-        boolean wasShot = currentPlayer.shoot(coordinatesAsInt);
+        boolean wasShot = getCurrentPlayer().shoot(coordinatesAsInt);
         String textToDisplay = wasShot ? "You hit!" : "You miss!";
 
-        wasShot = currentPlayer.isSunk(coordinatesAsInt);
+        wasShot = getCurrentPlayer().isSunk(coordinatesAsInt);
         textToDisplay = wasShot ? "Hit and sunk!": textToDisplay;
 
         return textToDisplay;
@@ -85,26 +81,6 @@ public class GameHC {
         int[] coordinatesAsInt = translateFromStringToCoordinates(coordinateAsArray);
         
         return coordinatesAsInt;
-    }
-
-    public boolean getHasStarted() {
-        return hasStarted;
-    }
-
-    private String turnOfPlayer(){
-        if (currentPlayer == playerHuman) {
-            return playerComp.getName();
-        } else {
-            return playerHuman.getName();
-        }
-    }
-
-    private void changeCurrentPlayer() {
-        if (currentPlayer.getName() == playerHuman.getName()) {
-            currentPlayer = playerComp;
-        } else {
-            currentPlayer = playerHuman;
-        }
     }
 
     private boolean checkCoordinates(String coordinatesAsString){
@@ -182,7 +158,7 @@ public class GameHC {
         int x = generator.nextInt(10);
         int y = generator.nextInt(10);
 
-        while(currentPlayer.getOcean().getBoard().get(y).get(x).getIsChosen()){
+        while(getCurrentPlayer().getOcean().getBoard().get(y).get(x).getIsChosen()){
             generator = new Random();
             x = generator.nextInt(10);
             y = generator.nextInt(10);
