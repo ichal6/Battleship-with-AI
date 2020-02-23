@@ -2,7 +2,7 @@ import java.util.Random;
 
 public abstract class GameAI extends Game {
     private Random generator;
-    private int difficultyLevel;
+    protected int difficultyLevel;
 
     protected int[] randomCoordinates(){
         generator = new Random();

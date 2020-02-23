@@ -1,8 +1,8 @@
 public abstract class Game{
-    private boolean hasStarted;
-    private Player currentPlayer;
-    private Player player1;
-    private Player player2;
+    protected boolean hasStarted;
+    protected Player currentPlayer;
+    protected Player player1;
+    protected Player player2;
 
     abstract void prepareToGame();
 
