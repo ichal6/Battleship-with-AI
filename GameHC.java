@@ -181,16 +181,12 @@ public class GameHC {
     private int[] randomCoordinates(){
         int x = generator.nextInt(10);
         int y = generator.nextInt(10);
-        int count = 0;
-
 
         while(currentPlayer.getOcean().getBoard().get(y).get(x).getIsChosen()){
             generator = new Random();
             x = generator.nextInt(10);
             y = generator.nextInt(10);
-            count++;
         }
-        System.out.println(currentPlayer.getOcean().getBoard().get(y).get(x).getIsChosen());
         int[] coordinatesAsArray = new int[]{x, y};
         return coordinatesAsArray;
     }
