@@ -1,5 +1,4 @@
 import java.util.Random;
-import java.util.regex.Pattern;
 
 public class GameCC {
     private boolean hasStarted;
