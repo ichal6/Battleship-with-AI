@@ -23,17 +23,6 @@ public class PlayerHuman extends Player {
         askForShips(); // <--- odkomentować do właściwej gry!!!
     }
 
-    public boolean hasLost(){
-        return getOcean().hasLost();
-    }
-
-    public boolean shoot(int[] coordinates){
-        return getOcean().isShot(coordinates[0],coordinates[1]);
-    }
-
-    public boolean isSunk(int[] coordinates){
-        return getOcean().isSunk(coordinates[0], coordinates[1]);
-    }
 
     private void askForName(String numOfUser) {
         view = new View();
