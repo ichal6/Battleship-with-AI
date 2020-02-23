@@ -1,7 +1,6 @@
 import java.util.regex.Pattern;
 
 public class GameHC extends GameAI {
-    public View view;
 
     public GameHC(int difficultyLevel){ 
         setDifficultyLevel(difficultyLevel);

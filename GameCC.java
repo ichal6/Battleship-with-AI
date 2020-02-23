@@ -1,5 +1,5 @@
 public class GameCC extends GameAI {
-    public View view;
+    
 
     public GameCC(int level){
         setDifficultyLevel(level);

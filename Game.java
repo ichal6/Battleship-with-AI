@@ -3,6 +3,7 @@ public abstract class Game{
     protected Player currentPlayer;
     protected Player player1;
     protected Player player2;
+    protected View view;
 
     abstract void prepareToGame();
 
