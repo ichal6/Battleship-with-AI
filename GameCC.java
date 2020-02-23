@@ -1,10 +1,6 @@
 import java.util.Random;
 
-public class GameCC {
-    private boolean hasStarted;
-    private Player currentPlayer;
-    private Player player1;
-    private Player player2;
+public class GameCC extends Game {
     private int difficultyLevel;
     private Random generator;
     public View view;
@@ -13,20 +9,20 @@ public class GameCC {
         this.difficultyLevel = difficultyLevel;
         view = new View();
         generator = new Random(); 
-        hasStarted = false;
+        setHasStarted(false);
         prepareToGame();
         playGame();
     }
 
-    private void prepareToGame() {
-        player1 = new PlayerComp("first");
-        player2 = new PlayerComp("second");
+    void prepareToGame() {
+        setPlayer1(new PlayerComp("first"));
+        setPlayer2(new PlayerComp("second"));
 
-        currentPlayer = player2;
+        setCurrentPlayer(getPlayer2());
     }
 
     private void playGame() {
-        hasStarted = true;
+        setHasStarted(true);
         String textToDisplay = "";
         boolean isGaming = true;
         while(isGaming){
@@ -35,10 +31,10 @@ public class GameCC {
             
 
             textToDisplay = shoot(getComputerCoordinates());
-            view.printOcean(currentPlayer.getOcean(), hasStarted);
+            view.printOcean(getCurrentPlayer().getOcean(), getHasStarted());
             view.printText(textToDisplay);
 
-            if(player1.hasLost() || player2.hasLost()){
+            if(getPlayer1().hasLost() || getPlayer2().hasLost()){
                 isGaming = false;
             } else{
                 changeCurrentPlayer();
@@ -49,10 +45,10 @@ public class GameCC {
     }
 
     private String shoot(int[] coordinatesAsInt){
-        boolean wasShot = currentPlayer.shoot(coordinatesAsInt);
+        boolean wasShot = getCurrentPlayer().shoot(coordinatesAsInt);
         String textToDisplay = wasShot ? "You hit!" : "You miss!";
 
-        wasShot = currentPlayer.isSunk(coordinatesAsInt);
+        wasShot = getCurrentPlayer().isSunk(coordinatesAsInt);
         textToDisplay = wasShot ? "Hit and sunk!": textToDisplay;
 
         return textToDisplay;
@@ -77,7 +73,7 @@ public class GameCC {
         int x = generator.nextInt(10);
         int y = generator.nextInt(10);
 
-        while(currentPlayer.getOcean().getBoard().get(y).get(x).getIsChosen()){
+        while(getCurrentPlayer().getOcean().getBoard().get(y).get(x).getIsChosen()){
             generator = new Random();
             x = generator.nextInt(10);
             y = generator.nextInt(10);
@@ -87,23 +83,4 @@ public class GameCC {
         return coordinatesAsArray;
     }
 
-    public boolean getHasStarted() {
-        return hasStarted;
-    }
-
-    private String turnOfPlayer(){
-        if (currentPlayer == player1) {
-            return player2.getName();
-        } else {
-            return player1.getName();
-        }
-    }
-
-    private void changeCurrentPlayer() {
-        if (currentPlayer.getName() == player1.getName()) {
-            currentPlayer = player2;
-        } else {
-            currentPlayer = player1;
-        }
-    }
 }
