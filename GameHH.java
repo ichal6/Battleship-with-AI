@@ -40,15 +40,6 @@ public class GameHH extends Game {
         view.printText(String.format("Congratoulations %s! You Won!", turnOfPlayer()));
     }
 
-    private String shoot(int[] coordinatesAsInt){
-        boolean wasShot = getCurrentPlayer().shoot(coordinatesAsInt);
-        String textToDisplay = wasShot ? "You hit!" : "You miss!";
-
-        wasShot = getCurrentPlayer().isSunk(coordinatesAsInt);
-        textToDisplay = wasShot ? "Hit and sunk!": textToDisplay;
-
-        return textToDisplay;
-    }
 
     private int[] getCoordinates(String coordinatesAsString){
         String[] coordinateAsArray = new String[] {};

@@ -54,5 +54,15 @@ public abstract class Game{
     public Player getCurrentPlayer(){
         return currentPlayer;
     }
+
+    protected String shoot(int[] coordinatesAsInt){
+        boolean wasShot = getCurrentPlayer().shoot(coordinatesAsInt);
+        String textToDisplay = wasShot ? "You hit!" : "You miss!";
+
+        wasShot = getCurrentPlayer().isSunk(coordinatesAsInt);
+        textToDisplay = wasShot ? "Hit and sunk!": textToDisplay;
+
+        return textToDisplay;
+    }
     
 }

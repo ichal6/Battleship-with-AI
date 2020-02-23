@@ -8,7 +8,7 @@ public class PlayerComp extends Player {
     }
 
     private void placeShips() {
-        getOcean().addShip(2, 6, true, 3);
+        getOcean().addShip(0, 0, true, 3);
     }
 
 }
