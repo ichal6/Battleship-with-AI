@@ -14,8 +14,8 @@ public class Game {
     }
 
     private void prepareToGame() {
-        player1 = new Player("first");
-        player2 = new Player("second");
+        player1 = new PlayerHuman("first");
+        player2 = new PlayerHuman("second");
 
         currentPlayer = player2;
     }
