@@ -32,9 +32,10 @@ public class GameCC {
         while(isGaming){
             view.clearScreen();
             view.printTitle(String.format("It's %s's turn to strike!", turnOfPlayer()));
-            view.printOcean(currentPlayer.getOcean(), hasStarted);
+            
 
             textToDisplay = shoot(getComputerCoordinates());
+            view.printOcean(currentPlayer.getOcean(), hasStarted);
             view.printText(textToDisplay);
 
             if(player1.hasLost() || player2.hasLost()){
