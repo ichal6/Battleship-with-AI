@@ -133,4 +133,8 @@ public class Ocean{
         }
         return boardString;
     }
+
+    public List<ArrayList<Square>> getBoard(){
+        return board;
+    }
 }
