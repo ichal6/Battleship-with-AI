@@ -1,41 +1,37 @@
 import java.util.regex.Pattern;
 
-public class GameHH {
-    private boolean hasStarted;
-    private Player currentPlayer;
-    private Player player1;
-    private Player player2;
+public class GameHH extends Game {
     public View view;
 
     public GameHH(){ 
-        hasStarted = false;
+        setHasStarted(false);
         view = new View();
         prepareToGame();
         playGame();
     }
 
-    private void prepareToGame() {
-        player1 = new PlayerHuman("first");
-        player2 = new PlayerHuman("second");
+    void prepareToGame() {
+        setPlayer1(new PlayerHuman("first"));
+        setPlayer2(new PlayerHuman("second"));
 
-        currentPlayer = player2;
+        setCurrentPlayer(getPlayer2());
     }
 
     private void playGame() {
-        hasStarted = true;
+        setHasStarted(true);
         String textToDisplay = "";
         String coordinatesAsString = "";
         boolean isGaming = true;
         while(isGaming){
             view.clearScreen();
             view.printTitle(String.format("It's %s's turn to strike!", turnOfPlayer()));
-            view.printOcean(currentPlayer.getOcean(), hasStarted);
+            view.printOcean(getCurrentPlayer().getOcean(), getHasStarted());
 
             int[] coordinatesAsInt = getCoordinates(coordinatesAsString);
             textToDisplay = shoot(coordinatesAsInt);
             view.printText(textToDisplay);
 
-            if(player1.hasLost() || player2.hasLost()){
+            if(getPlayer1().hasLost() || getPlayer2().hasLost()){
                 isGaming = false;
             } else{
                 changeCurrentPlayer();
@@ -46,10 +42,10 @@ public class GameHH {
     }
 
     private String shoot(int[] coordinatesAsInt){
-        boolean wasShot = currentPlayer.shoot(coordinatesAsInt);
+        boolean wasShot = getCurrentPlayer().shoot(coordinatesAsInt);
         String textToDisplay = wasShot ? "You hit!" : "You miss!";
 
-        wasShot = currentPlayer.isSunk(coordinatesAsInt);
+        wasShot = getCurrentPlayer().isSunk(coordinatesAsInt);
         textToDisplay = wasShot ? "Hit and sunk!": textToDisplay;
 
         return textToDisplay;
@@ -69,26 +65,6 @@ public class GameHH {
         int[] coordinatesAsInt = translateFromStringToCoordinates(coordinateAsArray);
         
         return coordinatesAsInt;
-    }
-
-    public boolean getHasStarted() {
-        return hasStarted;
-    }
-
-    private String turnOfPlayer(){
-        if (currentPlayer == player1) {
-            return player2.getName();
-        } else {
-            return player1.getName();
-        }
-    }
-
-    private void changeCurrentPlayer() {
-        if (currentPlayer.getName() == player1.getName()) {
-            currentPlayer = player2;
-        } else {
-            currentPlayer = player1;
-        }
     }
 
     private boolean checkCoordinates(String coordinatesAsString){
