@@ -1,7 +1,6 @@
 import java.util.regex.Pattern;
 
 public class GameHH extends Game {
-    public View view;
 
     public GameHH(){ 
         setHasStarted(false);
